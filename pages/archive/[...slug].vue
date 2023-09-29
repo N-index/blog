@@ -1,14 +1,15 @@
 <template>
-    <main class="relative flex gap-24px justify-center">
+    <main class="w-95% mx-auto max-w-40rem relative gap-24px justify-center">
 
         <ContentQuery :path="$route.path" find="one" v-slot="{ data }">
-            <ContentRenderer data-1 :value="data">
-                <Toc class="w-250px flex-shrink-0 " :toc="data.body.toc"></Toc>
+            <ContentRenderer :value="data">
+                <Toc class="w-250px flex-shrink-0" :toc="data.body.toc"></Toc>
                 <article class="w-640px">
-                    <NuxtLink to="/archive">Back</NuxtLink>
-
                     <h1>{{ data.title }}</h1>
-                    <time>{{data.date}}</time>
+                    <time class="block text-right -mt-16px mb-24px"
+                          style="opacity: 0.5;font-size: 0.875rem;line-height: 1.25rem;">
+                        {{ formattedDateTime(data.date) }}
+                    </time>
 
                     <ContentRendererMarkdown
                         :value="data"
@@ -16,28 +17,23 @@
                         data-color-mode="dark"
                     />
                 </article>
-                <div class="w-250px flex-shrink-0 "></div>
+                <div class="w-250px flex-shrink-0"></div>
             </ContentRenderer>
         </ContentQuery>
 
-        <ContentQuery
-            :path="$route.path"
-            find="surround"
-            :only="['_path', 'title']"
-            :without="['body']"
-            :sort="{date: -1}"
-            v-slot="{ data }"
-        >
-<!--            <pre>{{ data }}</pre>-->
-            <!--            <ContentRenderer :value="data">-->
-            <!--                <h1>{{ data.title }}</h1>-->
-            <!--                <ContentRendererMarkdown :value="data" class="markdown-body markdown-style" data-color-mode="dark" style="width: 680px" />-->
-            <!--            </ContentRenderer>-->
-            <div v-if="false" data-no-blobity>
-                <button data-no-blobity1 @click="prev">上一篇</button>
-                <button data-no-blobity1 @click="next">下一篇</button>
+
+        <div v-if="surroundInfo" class="surround-container" data-no-blobity>
+            <div class="surround-page">
+                <NuxtLink v-if="surroundInfo[0]" data-no-blobity class="surround-link" :to="surroundInfo[0]._path">
+                    上一篇
+                </NuxtLink>
             </div>
-        </ContentQuery>
+            <div class="surround-page">
+                <NuxtLink v-if="surroundInfo[1]" data-no-blobity class="surround-link" :to="surroundInfo[1]._path">
+                    下一篇
+                </NuxtLink>
+            </div>
+        </div>
 
 
     </main>
@@ -45,11 +41,11 @@
 </template>
 
 <script setup>
+import {formatDate} from "@vueuse/core";
+
 const route = useRoute();
-// const
 
-
-const {data} = await useAsyncData(
+const {data: surroundInfo} = await useAsyncData(
     () => queryContent('archive')
         .only(['_path', 'title'])
         .without(['body'])
@@ -57,6 +53,10 @@ const {data} = await useAsyncData(
         .findSurround(route.path)
 )
 
+const formattedDateTime = dateStr => formatDate(new Date(dateStr), 'YYYY-MM-DD hh:mm');
+
+
 </script>
+
 
 

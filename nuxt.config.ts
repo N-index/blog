@@ -8,7 +8,8 @@ export default defineNuxtConfig({
         '@unocss/nuxt',
         '@vueuse/nuxt',
         'dayjs-nuxt',
-        '@formkit/auto-animate/nuxt'
+        '@formkit/auto-animate/nuxt',
+        'nuxt-icon'
     ],
     dayjs: {
         locales: ['zh-cn', 'en',],

@@ -3,10 +3,6 @@ import {useNow, useDateFormat, formatDate} from '@vueuse/core'
 
 const formattedDate = dateStr => formatDate(new Date(dateStr), 'YYYY-MM-DD');
 
-const paginationInfo = reactive({
-    currentPage: 1,
-    pageSize: 5,
-})
 
 const prev = () => {
     router.push({
@@ -33,15 +29,23 @@ const {data: count} = await useAsyncData(() => queryContent('archive').count())
 
 const router = useRouter();
 const route = useRoute();
+const pageSize = ref(5);
 const currentPage = computed(() => {
     return isNaN(route.query.p) ? 1 : Math.max(1, parseInt(route.query.p));
+})
+const totalPage = computed(() => {
+    if (count.value === undefined || count.value === null) {
+        return '∞';
+    } else {
+        return Math.ceil(count.value / pageSize.value)
+    }
 })
 
 
 const {data: articleList} = await useAsyncData(
     () => queryContent('archive')
-        .limit(paginationInfo.pageSize)
-        .skip((currentPage.value - 1) * paginationInfo.pageSize)
+        .limit(pageSize.value)
+        .skip((currentPage.value - 1) * pageSize.value)
         .sort({date: -1})
         .find(),
     {
@@ -64,18 +68,17 @@ function add() {
 </script>
 
 <template>
-
-    <div class="w-95% mx-auto max-w-40rem">
-        {{ currentPage }}
-        <div>共{{ count }}篇文章</div>
+    <div class="mt-32px w-95% mx-auto max-w-40rem">
+        <Icon name="uil:github" />
+        <Icon name="ph:activity-bold" />
+        <Icon name="uil:twitter" />
+        <Icon name="🚀" />
+        <Icon name="material-symbols:4g-mobiledata" />
+        <IconCSS name="uil:twitter" />
         <template v-if="notFound">
-            <p>No posts found.</p>
+            <p>空空如也~</p>
         </template>
         <template v-else>
-            <template v-if="true">
-                <button @click="prev">上一页</button>
-                <button @click="next">下一页</button>
-            </template>
             <div v-for="article in articleList" :key="article._path" class="post-item" data-blobity>
                 <NuxtLink :to="article._path" class="post-link" data-no-blobity>
                     <h3 class="post-title">
@@ -84,6 +87,16 @@ function add() {
                     <time class="post-time">{{ formattedDate(article.date) }}</time>
                 </NuxtLink>
                 <p class="post-desc">{{ article.description }}</p>
+            </div>
+
+            <div class="mt-48px text-right">共{{ count }}篇，页数：{{ currentPage }}/{{ totalPage }}</div>
+            <div class="surround-container" style="margin-top: 8px; height: 32px;font-size: 14px">
+                <div class="surround-page">
+                    <button v-if="currentPage>1" class="surround-link" @click="prev">上一页</button>
+                </div>
+                <div class="surround-page">
+                    <button v-if="currentPage<totalPage" class="surround-link" @click="next">下一页</button>
+                </div>
             </div>
         </template>
     </div>

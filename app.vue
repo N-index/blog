@@ -3,6 +3,9 @@
         <Html data-color-mode="dark"></Html>
         <header class="w-95% mx-auto max-w-40rem">
             <Nav></Nav>
+
+
+            <Icon name="ph:activity"></Icon>
         </header>
         <NuxtPage/>
     </div>
@@ -40,9 +43,12 @@ provide('blob', blobityInstance);
 </script>
 
 <style lang="scss">
+html {
+    scroll-behavior: smooth;
+    scroll-padding-block-start: 26px;
+}
+
 body {
-
-
     background-color: #18181a;
     color: #d1d5db;
     font-family: -apple-system, BlinkMacSystemFont, "Noto Serif SC", "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
@@ -55,9 +61,14 @@ body {
 
 .markdown-body {
     background-color: unset !important;
+    letter-spacing: -.1px;
 }
 
 .markdown-body p {
+    line-height: 1.8;
+}
+
+.markdown-body ol, .markdown-body li {
     line-height: 1.8;
 }
 
@@ -97,4 +108,36 @@ h1, h2, h3, h4, h5, h6 {
     font-family: -apple-system, BlinkMacSystemFont, "Noto Serif SC", "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, "PingFang SC", STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑", SimSun, "宋体", Heiti, "黑体", sans-serif !important;
 }
 
+</style>
+<style>
+.surround-container {
+    margin-top: 32px;
+    height: 40px;
+    display: flex;
+    gap: 16px;
+    width: 100%;
+
+    .surround-page {
+        flex: 1 0 auto;
+        height: 100%;
+    }
+
+    .surround-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+        border-radius: 4px;
+        border: solid 1px #efefef;
+        background-color: rgba(255, 255, 255, .1);
+        text-decoration: none;
+        color: #fff;
+        transition: all .25s ease-out;
+
+        &:hover {
+            background-color: rgba(255, 255, 255, .2);;
+        }
+    }
+}
 </style>

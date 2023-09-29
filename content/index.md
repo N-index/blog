@@ -5,6 +5,3 @@
 ::
 
 ---
-关于
-
-Look at the [Content documentation](https://content.nuxtjs.org/) to learn more.
