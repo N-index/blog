@@ -20,6 +20,7 @@
     "@nuxt/content": "npm:@nuxt/content-edge@latest",
     "blobity": "^0.2.3",
     "github-markdown-css": "^5.2.0",
+    "medium-zoom": "^1.0.8",
     "normalize.css": "^8.0.1",
     "powerglitch": "^2.3.2",
     "tippy.js": "^6.3.7"

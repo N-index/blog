@@ -69,12 +69,6 @@ function add() {
 
 <template>
     <div class="mt-32px w-95% mx-auto max-w-40rem">
-        <Icon name="uil:github" />
-        <Icon name="ph:activity-bold" />
-        <Icon name="uil:twitter" />
-        <Icon name="🚀" />
-        <Icon name="material-symbols:4g-mobiledata" />
-        <IconCSS name="uil:twitter" />
         <template v-if="notFound">
             <p>空空如也~</p>
         </template>

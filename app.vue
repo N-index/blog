@@ -1,11 +1,9 @@
 <template>
     <div class="py-2rem" style="">
         <Html data-color-mode="dark"></Html>
+        <Body></Body>
         <header class="w-95% mx-auto max-w-40rem">
             <Nav></Nav>
-
-
-            <Icon name="ph:activity"></Icon>
         </header>
         <NuxtPage/>
     </div>
@@ -14,8 +12,8 @@
 
 <script setup>
 import 'normalize.css';
-
 // import useBlobity from 'blobity/lib/vue/useBlobity';
+
 useHead({
     link: [
         {
@@ -40,12 +38,18 @@ const blobityInstance = useBlobity({
 })
 provide('blob', blobityInstance);
 
+
+
+
 </script>
 
 <style lang="scss">
 html {
     scroll-behavior: smooth;
     scroll-padding-block-start: 26px;
+}
+.medium-zoom-overlay{
+    background-color: rgba(0,0,0,.4) !important;
 }
 
 body {

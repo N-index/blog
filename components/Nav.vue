@@ -16,7 +16,7 @@
                 </NuxtLink>
             </li>
             <li class="nav-item">
-                <NuxtLink to="/x">
+                <NuxtLink to="/thoughts">
                     碎念
                 </NuxtLink>
             </li>

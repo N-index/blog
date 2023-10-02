@@ -8,13 +8,13 @@ const props = defineProps({
 </script>
 
 <template>
-    <nav class="">
-        <ul class="sticky top-8rem">
+    <nav class="py-16px bg-#1f1f1f w-full" style="">
+        <ul class="m-0 px-16px list-none">
             <li v-for="link of toc.links">
                 <a :href="`#${link.id}`" class="block" style="width: 100%">
                     {{link.text}}
                 </a>
-                <ul v-if="link.children && link.children.length">
+                <ul v-if="link.children && link.children.length" class="list-none">
                     <li v-for="link of link.children">
                         <a :href="`#${link.id}`" class="block" >
                             {{link.text}}
