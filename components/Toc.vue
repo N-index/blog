@@ -8,8 +8,8 @@ const props = defineProps({
 </script>
 
 <template>
-    <nav class="py-16px bg-#1f1f1f w-full" style="">
-        <ul class="m-0 px-16px list-none">
+    <nav class="p-16px bg-#1f1f1f w-full" style="">
+        <ul class="m-0 p-0 list-none">
             <li v-for="link of toc.links">
                 <a :href="`#${link.id}`" class="block" style="width: 100%">
                     {{link.text}}

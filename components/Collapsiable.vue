@@ -58,6 +58,5 @@ const handleTransitionEnd = ()=>{
     height: auto;
     overflow: hidden;
     transition: height cubic-bezier(.48,.19,.04,1.33) .25s;
-    display: flex;
 }
 </style>

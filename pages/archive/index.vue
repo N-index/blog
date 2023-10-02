@@ -42,11 +42,12 @@ const totalPage = computed(() => {
 })
 
 
-const {data: articleList} = await useAsyncData(
+const {data: articleList, pending: isLoading} = await useAsyncData(
     () => queryContent('archive')
         .limit(pageSize.value)
         .skip((currentPage.value - 1) * pageSize.value)
         .sort({date: -1})
+        .only(['_path','title','date','description'])
         .find(),
     {
         watch: [currentPage]
@@ -69,7 +70,28 @@ function add() {
 
 <template>
     <div class="mt-32px w-95% mx-auto max-w-40rem">
-        <template v-if="notFound">
+        <template v-if="false">
+            <div v-auto-animate>
+                <div v-if="items.length % 2===0">元素111111111111</div>
+                <div v-if="items.length %2!==0">元素2222222222222222</div>
+            </div>
+
+
+            <ul v-auto-animate>
+                <li
+                    v-for="item in items"
+                    :key="item"
+                    @click="removeItem(item)"
+                >
+                    {{ item }}
+                </li>
+            </ul>
+            <button @click="add">add</button>
+        </template>
+        <template v-if="isLoading">
+            加载中...
+        </template>
+        <template v-else-if="notFound">
             <p>空空如也~</p>
         </template>
         <template v-else>
@@ -95,25 +117,6 @@ function add() {
         </template>
     </div>
 
-
-    <template v-if="false">
-        <div v-auto-animate>
-            <div v-if="items.length % 2===0">元素111111111111</div>
-            <div v-if="items.length %2!==0">元素2222222222222222</div>
-        </div>
-
-
-        <ul v-auto-animate>
-            <li
-                v-for="item in items"
-                :key="item"
-                @click="removeItem(item)"
-            >
-                {{ item }}
-            </li>
-        </ul>
-        <button @click="add">add</button>
-    </template>
 
 
 </template>

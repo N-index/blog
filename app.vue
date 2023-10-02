@@ -1,13 +1,11 @@
 <template>
     <div class="py-2rem" style="">
         <Html data-color-mode="dark"></Html>
-        <Body></Body>
         <header class="w-95% mx-auto max-w-40rem">
             <Nav></Nav>
         </header>
-        <NuxtPage/>
+        <NuxtPage />
     </div>
-
 </template>
 
 <script setup>
@@ -44,9 +42,27 @@ provide('blob', blobityInstance);
 </script>
 
 <style lang="scss">
+.page-enter-active,
+.page-leave-active {
+    transition: all .2s;
+}
+//.page-enter-from{
+//    transform: translateX(100vw);
+//}
+//.page-leave-to {
+//    transform: translateX(-100vw);
+//}
+
+.page-enter-from,
+.page-leave-to {
+    opacity: 0;
+    filter: blur(1rem);
+}
+
 html {
     scroll-behavior: smooth;
     scroll-padding-block-start: 26px;
+    overflow-x: hidden;
 }
 .medium-zoom-overlay{
     background-color: rgba(0,0,0,.4) !important;
